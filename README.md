@@ -16,8 +16,6 @@
 
 ---
 
-# Fashion Demand Forecasting: Seasonal Retail Model Benchmarking
-
 ## Executive Summary
 
 This project evaluates forecasting approaches for monthly seasonal retail demand across three product categories:
