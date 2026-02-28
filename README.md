@@ -194,7 +194,7 @@ Future improvements could include feature enrichment and rolling cross-validatio
 
 1. Clone the repository  
 2. Install required libraries:
-3. Download the H&M dataset from Kaggle  
+3. Download the [H&M Personalized Fashion Recommendations dataset](https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations) from Kaggle 
 4. Place data in a `data/` directory  
 5. Run `FashionDemandForecast.ipynb` from top to bottom  
 
