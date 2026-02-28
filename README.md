@@ -141,13 +141,29 @@ Model performance is category-dependent.
 
 ---
 
-# Forecast Example
+## Forecast Examples by Category
 
-## Swimwear Forecast vs Actual (Seasonal Naive)
+### Swimwear – Seasonal Naive
 
 <img src="Images/swimwear_seasonal_naive.png" width="800">
 
-This example demonstrates the model’s ability to capture peak seasonality patterns.
+This example demonstrates the model’s ability to capture peak summer seasonality in highly volatile demand.
+
+---
+
+### Knitwear – SARIMA
+
+<img src="Images/knitwear_sarima.png" width="800">
+
+SARIMA effectively captures smoother seasonal transitions in knitwear demand, reducing error relative to naive baselines.
+
+---
+
+### Jersey Fancy – SARIMA
+
+<img src="Images/jerseyfancy_sarima.png" width="800">
+
+For stable demand categories, SARIMA provides strong seasonal alignment and lower relative forecast error.
 
 ---
 
