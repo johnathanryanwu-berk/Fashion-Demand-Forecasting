@@ -16,179 +16,178 @@
 
 ---
 
-# Executive Summary
+# Fashion Demand Forecasting: Seasonal Retail Model Benchmarking
 
-This project evaluates forecasting approaches for monthly seasonal retail demand across three product categories: Swimwear, Knitwear, and Jersey Fancy.
+## Executive Summary
 
-Key findings:
+This project evaluates forecasting approaches for monthly seasonal retail demand across three product categories:
 
-- Retail demand is strongly driven by repeat annual seasonality.
-- Simple seasonal baselines are highly competitive.
-- Model complexity does not guarantee improved accuracy.
-- Forecast error ranges from ~9% in stable categories to ~32% in highly volatile categories.
-- Model performance is category-dependent.
+- **Swimwear**
+- **Knitwear**
+- **Jersey Fancy**
 
-For short seasonal retail time series, stability and interpretability often outperform algorithmic complexity.
+The objective was to determine whether increasingly sophisticated models meaningfully improve forecast performance under limited historical depth.
 
----
+### Key Findings
 
-# Business Context
+- Strong annual seasonality dominates demand patterns.
+- Simple seasonal baselines remain highly competitive.
+- Increased model complexity does not guarantee improved accuracy.
+- Forecast error ranges from approximately **9% to 32% of average monthly demand**, depending on category volatility.
 
-Retail inventory allocation depends heavily on reliable short-term forecasts.  
-
-Poor forecasting can result in:
-
-- Overstock and increased holding costs  
-- Stockouts and lost sales  
-- Margin erosion due to markdowns  
-
-The objective of this project was to determine whether increasingly sophisticated models provide meaningful performance improvement over simple seasonal benchmarks for monthly demand forecasting.
+Overall, model performance is driven more by demand characteristics than algorithmic sophistication.
 
 ---
 
-# Modeling Framework
+## Business Context
 
-The project follows a structured benchmarking approach:
+Accurate demand forecasting is critical for:
 
-1. Data cleaning and monthly aggregation  
-2. Baseline forecasting models  
-3. Linear regression with lag features (Ridge)  
-4. Nonlinear machine learning (Random Forest)  
-5. Classical time-series modeling (SARIMA)  
-6. Evaluation using MAE and RMSE  
-7. Joint ranking and scale-adjusted error analysis  
+- Inventory allocation  
+- Stockout reduction  
+- Working capital optimization  
+- Seasonal merchandising strategy  
 
-Models were compared within each category using both absolute error metrics and error as a percentage of average demand.
+This analysis benchmarks multiple forecasting approaches to determine which models provide the most reliable predictions across categories with differing volatility.
 
 ---
 
-# Data Description
+## Data Overview
 
-Dataset: H&M Personalized Fashion Recommendations (Kaggle)
+The dataset is derived from the **H&M Personalized Fashion Recommendations** Kaggle competition.
 
-Transaction-level data was aggregated to monthly unit demand at the product category level.
+Transaction-level data was aggregated to monthly unit demand by product category.
 
-Categories analyzed:
-
-- Swimwear (high volatility)
-- Knitwear (moderate seasonality)
-- Jersey Fancy (stable seasonal structure)
-
-Time horizon: ~24 months of historical data.
+Time span: ~24 months  
+Validation: Final months held out for forecast evaluation  
 
 ---
 
-# Model Comparison
+## Modeling Framework
 
-Models evaluated:
+Six forecasting approaches were evaluated:
 
-| Model | Type |
-|-------|------|
-| Naive | Last observed value |
-| Seasonal Naive | Same month previous year |
-| Moving Average | Windowed smoothing |
-| Ridge Regression | Linear model with lag features |
-| Random Forest | Nonlinear tree-based model |
-| SARIMA | Classical seasonal time-series |
+| Model | Description |
+|-------|-------------|
+| **Naive** | Last observed value |
+| **Seasonal Naive** | Same month last year |
+| **Moving Average** | Rolling window smoothing |
+| **Ridge Regression** | Linear model with lag features |
+| **Random Forest** | Nonlinear ensemble method |
+| **SARIMA** | Seasonal autoregressive integrated moving average |
 
-Evaluation metrics:
+Models were compared using:
 
-- Mean Absolute Error (MAE)  
-- Root Mean Squared Error (RMSE)  
-- Error as % of average monthly demand  
-- Joint ranking across MAE and RMSE  
+- Mean Absolute Error (MAE)
+- Root Mean Squared Error (RMSE)
+- Joint MAE–RMSE ranking
+- Error as a percentage of average demand
 
 ---
 
 # Visual Diagnostics
 
-The following visual analyses were used to evaluate performance:
+## Seasonal Demand Patterns
 
-- Seasonal demand patterns by category  
-- Actual vs forecast overlays  
-- Model error comparison  
-- Ranking summary across models  
+Strong seasonality is visible across categories, particularly in Swimwear.
 
-(Visuals embedded below.)
+<img src="Images/monthlydemandbycategory.png" width="800">
+
+Seasonal peaks justify the use of seasonal baselines and time-series models.
 
 ---
 
-# Final Model Selection
+# Model Comparison
 
-Based on joint MAE and RMSE ranking:
+## Model Error Comparison (MAE)
 
-| Category | Recommended Model |
-|----------|------------------|
-| Swimwear | Seasonal Naive |
-| Knitwear | SARIMA |
-| Jersey Fancy | SARIMA |
+Absolute forecast error comparison across categories:
 
-Findings:
+<img src="Images/modelerrorcompare.png" width="800">
 
-- Seasonal Naive performs best in volatile demand environments.
-- SARIMA performs strongest in smoother seasonal categories.
-- Random Forest does not deliver consistent improvements.
-- Ridge remains competitive but does not dominate in joint ranking.
+Key observation:
+- Seasonal Naive performs competitively in volatile categories.
+- Ridge and Random Forest show higher instability.
+- SARIMA performs well in smoother categories.
+
+---
+
+## Forecast Error as Percentage of Demand
+
+Normalizing error provides operational relevance.
+
+<img src="Images/forecasterrorpercentage.png" width="800">
+
+Key insight:
+- Swimwear error ≈ 24–65%
+- Knitwear error ≈ 32–80%
+- Jersey Fancy error ≈ 9–28%
+
+Demand volatility strongly influences forecast reliability.
+
+---
+
+## Joint Model Ranking (MAE + RMSE)
+
+A consolidated ranking across both MAE and RMSE:
+
+<img src="Images/jointmodel.png" width="800">
+
+Observations:
+
+- **Swimwear:** Seasonal Naive ranks highest.
+- **Knitwear:** SARIMA performs strongest.
+- **Jersey Fancy:** SARIMA leads, with Seasonal close behind.
+
+Model performance is category-dependent.
+
+---
+
+# Forecast Example
+
+## Swimwear Forecast vs Actual (Seasonal Naive)
+
+<img src="Images/swimwear_seasonal_naive.png" width="800">
+
+This example demonstrates the model’s ability to capture peak seasonality patterns.
 
 ---
 
 # Deployment Recommendation
 
-For production implementation:
+Based on evaluation:
 
-1. Use Seasonal Naive as a benchmark baseline.
-2. Deploy SARIMA for smoother seasonal series.
-3. Avoid high-variance nonlinear models unless historical depth increases.
-4. Incorporate external drivers (price, promotions, weather) before increasing model complexity.
+- Use **Seasonal Naive** as a benchmark for volatile categories.
+- Deploy **SARIMA** for smoother seasonal series.
+- Use Ridge regression when engineered external features are available.
+- Avoid high-variance nonlinear models without sufficient historical depth.
+
+Model selection should be tailored to category volatility rather than defaulting to the most complex algorithm.
 
 ---
 
 # Limitations
 
-- Limited historical depth (~24 months) constrains seasonal parameter estimation.
-- Models trained independently by category.
-- No external explanatory variables included.
-- Single validation split (not rolling cross-validation).
+- Limited historical depth (~24 months)
+- No external regressors (pricing, promotions, weather)
+- Single validation split
 
----
-
-# Tech Stack
-
-- Python  
-- pandas  
-- numpy  
-- scikit-learn  
-- statsmodels  
-- matplotlib  
-
----
-
-# Skills Demonstrated
-
-- Time-series forecasting  
-- Model benchmarking  
-- Feature engineering  
-- Error metric evaluation  
-- Comparative model ranking  
-- Business-oriented interpretation  
-- Operational recommendation design  
-
----
-
-# Why This Project Matters
-
-This project demonstrates structured model comparison in a real-world retail forecasting context.
-
-Rather than assuming complex models outperform simple baselines, the analysis evaluates trade-offs between accuracy, stability, and operational practicality.
-
-It highlights the importance of aligning model sophistication with data structure and business needs.
+Future improvements could include feature enrichment and rolling cross-validation.
 
 ---
 
 # How to Run
 
 1. Clone the repository  
-2. Install dependencies
+2. Install required libraries:
 3. Download the H&M dataset from Kaggle  
-4. Place files in the `data/` directory  
-5. Open and run `FashionDemandForecast.ipynb` from top to bottom  
+4. Place data in a `data/` directory  
+5. Run `FashionDemandForecast.ipynb` from top to bottom  
+
+---
+
+# Author
+
+**Johnathan Ryan Wu**  
+UC Berkeley – Master of Analytics  
+GitHub: https://github.com/johnathanryanwu-berk
