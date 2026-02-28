@@ -188,4 +188,7 @@ It highlights the importance of aligning model sophistication with data structur
 # How to Run
 
 1. Clone the repository  
-2. Install dependencies  
+2. Install dependencies
+3. Download the H&M dataset from Kaggle  
+4. Place files in the `data/` directory  
+5. Open and run `FashionDemandForecast.ipynb` from top to bottom  
