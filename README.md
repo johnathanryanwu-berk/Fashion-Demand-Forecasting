@@ -190,6 +190,25 @@ Future improvements could include feature enrichment and rolling cross-validatio
 
 ---
 
+# Tech Stack
+
+**Data Processing**
+- pandas
+- NumPy
+
+**Forecasting Models**
+- SARIMA (statsmodels)
+- Prophet
+
+**Visualization**
+- matplotlib
+- seaborn
+
+**Programming**
+- Python
+
+---
+
 # How to Run
 
 1. Clone the repository  
